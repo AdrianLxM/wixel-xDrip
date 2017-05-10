@@ -265,12 +265,14 @@ void print_packet(Dexcom_packet* pPkt) {
 void makeAllOutputs() {
     int XDATA i;
     for (i=1; i < 16; i++) { // in the future, this should be set to only the channels being used for output, and add the one for input
+	if(i!=10)
         setDigitalOutput(i, LOW);
     }
 }
 void makeAllOutputsLow() {
     int XDATA i;
     for (i=0; i < 16; i++) {
+	if(i!=10)
         setDigitalOutput(i, LOW);
     }
 }
@@ -510,7 +512,7 @@ void main() {
     initUart1();
     P1DIR |= 0x08; // RTS
     sleepInit();
-
+    setDigitalOutput(10, HIGH);	//turn on HM-1x using P1_0
     makeAllOutputs();
     setADCInputs();
 
